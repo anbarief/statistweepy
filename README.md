@@ -47,7 +47,7 @@ project.cbar(adjustment = setting)
 
 The `cbar` method will plot a circular bar chart is as figure below.
 
-![alt text](https://raw.githubusercontent.com/anbarief/statis-tweepy/master/README_fig1.png)
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/README_fig1.png)
 
 To exclude words, use `exclude` keyword in `Adjustment` class, for example, 
 
@@ -65,5 +65,5 @@ project.cbar(adjustment = setting)
 
 The result is as the figure below 
 
-![alt text](https://raw.githubusercontent.com/anbarief/statis-tweepy/master/README_fig2.png)
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/README_fig2.png)
 
