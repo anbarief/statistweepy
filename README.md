@@ -2,11 +2,11 @@
 A simple tool that use tweepy to collect and use Twitter data. The data structure is simple `Status` object collected using tweepy. To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
 
 Requirements :
-- Tweepy 3.6
-- Numpy 1.14.2
-- Matplotlib 2.2 
+- [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
+- Numpy
+- Matplotlib
 
-Author : Arief Anbiya (anbarief@live.com)
+Author : Arief Anbiya (anbarief@live.com), written in Python 2.
 
 ## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Data)
 
