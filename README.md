@@ -1,4 +1,4 @@
-# statis-tweepy
+# statistweepy
 A simple tool that use tweepy to collect and use Twitter data. The data structure is simple `Status` object collected using tweepy. To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
 
 Requirements :
@@ -15,7 +15,7 @@ Author : Arief Anbiya (anbarief@live.com), written in Python 2.
 Here is an example of how we can collect the data : 
 
 ```
-import statis_tweepy.collection as collection
+import statistweepy.collection as collection
 consumer_key = '****'
 consumer_secret = '****'
 access_token = '****'
@@ -36,8 +36,8 @@ which returns a tuple of 2 elements. First is the list of 'tweet' objects, and t
 Currently, there are only two models, setup in `Words` class and `LinkedWords` class. We will see a demo of using the `Words` class.
 
 ```
-import statis_tweepy.models as models
-import statis_tweepy.adjustment as adjust
+import statistweepy.models as models
+import statistweepy.adjustment as adjust
 project = models.Words(data[0])
 setting = adjust.Adjustment(char_lim = (3, 30), \ # only include words with 3 <= number of characters <= 30
                             freq_lim = (5, 100), # only include words with 5 <= frequency <= 100
@@ -49,11 +49,11 @@ The `cbar` method will plot a circular bar chart is as figure below.
 
 ![alt text](https://raw.githubusercontent.com/anbarief/statis-tweepy/master/README_fig1.png)
 
-To exclude words, use `include` keyword in `Adjustment` class, for example, 
+To exclude words, use `exclude` keyword in `Adjustment` class, for example, 
 
 ```
-import statis_tweepy.models as models
-import statis_tweepy.adjustment as adjust
+import statistweepy.models as models
+import statistweepy.adjustment as adjust
 project = models.Words(data[0])
 setting = adjust.Adjustment(char_lim = (3, 30), \
                             freq_lim = (5, 100),
