@@ -8,7 +8,7 @@ Requirements :
 
 Author : Arief Anbiya (anbarief@live.com), written in Python 2.
 
-## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Data)
+## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
 
 ## Collect Data :
 
