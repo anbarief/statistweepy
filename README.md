@@ -6,7 +6,7 @@ Requirements :
 - Numpy
 - Matplotlib
 
-Author : Arief Anbiya (anbarief@live.com), written in Python 2.
+Author : Arief Anbiya (anbarief@live.com), written in Python 3.
 
 ## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
 
@@ -33,37 +33,4 @@ which returns a tuple of 2 elements. First is the list of 'tweet' objects, and t
 
 ## Analyze Data :
 
-Currently, there are only two models, setup in `Words` class and `LinkedWords` class. We will see a demo of using the `Words` class.
-
-```
-import statistweepy.models as models
-import statistweepy.adjustment as adjust
-project = models.Words(data[0])
-setting = adjust.Adjustment(char_lim = (3, 30), \ # only include words with 3 <= number of characters <= 30
-                            freq_lim = (5, 100), # only include words with 5 <= frequency <= 100
-                            )
-project.cbar(adjustment = setting)
-```
-
-The `cbar` method will plot a circular bar chart is as figure below.
-
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/README_fig1.png)
-
-To exclude words, use `exclude` keyword in `Adjustment` class, for example, 
-
-```
-import statistweepy.models as models
-import statistweepy.adjustment as adjust
-project = models.Words(data[0])
-setting = adjust.Adjustment(char_lim = (3, 30), \
-                            freq_lim = (5, 100),
-                            exclude = ('and', 'the', 'for', 'this', 'that', 'but', 'The', 'for', 'has', 'have', \
-                                       'his', 'how', 'he', 'she', 'had')
-                            )
-project.cbar(adjustment = setting)
-```
-
-The result is as the figure below 
-
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/README_fig2.png)
-
+Currently, there are only two models, setup in `Authors` class and `Splits` class. 
