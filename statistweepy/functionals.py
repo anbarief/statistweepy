@@ -21,14 +21,20 @@ def filter_unique(tweet_stats_list, output = 'status'):
 
     return unique
 
-def texts_to_words(texts, adjustment = None):
-
-        word_list = []
+def split_texts(texts, adjustment = None):
+        split_list = []
         for text in texts:
-            words = text.split()
-            if adjustment != None:
-                for group in adjustment.group:
-                    words = adjust.group(words, group, group.name)
-            word_list.extend(words)
+            split = text.split()
+            split_list.extend(split)
+        return split_list
 
-        return word_list
+def total_rts(tweet_stats_list, string_inclusion = False):
+    result = 0
+    if not string_inclusion :
+        result = sum([tweet.retweet_count for tweet in tweet_stats_list]);
+    else:
+        try:
+            result = sum([tweet.retweet_count for tweet in tweet_stats_list if string_inclusion in tweet.full_text.split()])
+        except:
+            result = sum([tweet.retweet_count for tweet in tweet_stats_list if string_inclusion in tweet.text.split()])
+    return result
