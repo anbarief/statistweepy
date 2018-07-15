@@ -46,8 +46,11 @@ Authors.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Foll
 
 plt.show()
 ```
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_1.png)
 
 The 1st plot shows the number of followers of each appearing account in the data, with the color representing the number of followed accounts. The denser color has more accounts followed.
+
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_2.png)
 
 The 2nd plot shows the number of sample tweets in the data of each appearing account, with the color representing the number of followers. The denser color has more followers.
 
