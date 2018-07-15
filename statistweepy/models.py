@@ -26,20 +26,19 @@ class Authors(object):
         self.stats = {author: [stat for stat in self.stats if stat.author.name == author] for author in self.authors}
         self.stats_count = {author: len(self.stats[author]) for author in self.stats}
 
-    def hbar_plot(self, ax, measurement = 'Total Tweets', incolor_measurement = None, **kwargs):
+    def hbar_plot(self, ax, measurement = 'Total Tweets', incolor_measurement = None, width = 1, textsize = 7, color = (0, 0.5, 1, 1), **kwargs):
 
         measurements = {'Followers': self.followers_count, 'Following' : self.following_count, 'Total Tweets' : self.totaltweets, 'Sample Tweets' : self.stats_count}
         sorted_authors = sorted(measurements[measurement], key = lambda x : measurements[measurement][x])
-        colors = len(self.authors)*[(0, 0.5, 1, 1)]
+        colors = len(self.authors)*[color]
         if incolor_measurement != None:
             minor_max = max(measurements[incolor_measurement].values())
             transparency = [measurements[incolor_measurement][author]/minor_max for author in sorted_authors]
-            colors = [(0, 0.5, 1, trans) for trans in transparency]
-        var = [i+2 for i in range(len(self.authors))]
-        w = 0.5        
-        ax.barh([i-w/2 for i in var], [measurements[measurement][author] for author in sorted_authors], color = colors)
+            colors = [(color[0], color[1], color[2], trans) for trans in transparency]
+        var = [i+width for i in range(len(self.authors))]
+        ax.barh([i-width/2 for i in var], [measurements[measurement][author] for author in sorted_authors], height = width, color = colors)
         ax.set_yticks(var)
-        ax.set_yticklabels(sorted_authors, rotation = 'horizontal')
+        ax.set_yticklabels(sorted_authors, rotation = 'horizontal', size = textsize)
 
         if incolor_measurement != None:
             ax.set_xlabel(measurement + ' (color : '+incolor_measurement+')')
