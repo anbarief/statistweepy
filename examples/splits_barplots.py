@@ -1,11 +1,10 @@
 import numpy
-from statistweepy import collection
 from statistweepy import models
 import matplotlib.pyplot as plt
 import statistweepy.adjustment as adjust
 import statistweepy.functionals as func
 
-stats = numpy.load('/home/asus/statistweepy/testfile.npy')
+stats = numpy.load('testfile.npy')
 
 Splits = models.Splits(stats, filter_unique = True)
 
