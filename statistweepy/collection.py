@@ -51,18 +51,6 @@ class Collection(object):
         time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
             str(hour), str(mnt), str(day), str(month), str(year))
         self.time_collected = time_string;
-
-        try :
-
-            history = list(numpy.load('history.npy'))
-            history.extend( self.stats )
-            history = functionals.filter_unique(history, output = 'status')
-            numpy.save('history', history)
-
-        except:
-
-            history = functionals.filter_unique( self.stats , output = 'status')
-            numpy.save('history', history)
         
         return self.stats, self.time_collected
 
@@ -84,16 +72,6 @@ class Collection(object):
         time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
             str(hour), str(mnt), str(day), str(month), str(year))
         self.time_collected = time_string;
-
-        try :
-            
-            history = list(numpy.load('history.npy'))
-            history.extend( self.stats )
-            numpy.save('history', history)
-
-        except:
-
-            numpy.save('history', self.stats)
 
         return self.stats, self.time_collected
 
