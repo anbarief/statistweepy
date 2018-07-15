@@ -25,12 +25,32 @@ collect = collection.Collection(Init)
 ```
 This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. 
 
-Next, we would like to collect data from @NatGeo account, by the `collect_user` method,
-
-`data = Collect.collect_user('NatGeo', n = 250) # to include RTs, use keyword 'include_rts = True'.`
-
-which returns a tuple of 2 elements. First is the list of 'tweet' objects, and the second is the time of collection.
-
 ## Analyze Data :
 
-Currently, there are only two models, setup in `Authors` class and `Splits` class. 
+Currently, there are only two models, setup in `Authors` class and `Splits` class. We will see one example of using `Authors` model.
+
+```
+import numpy
+from statistweepy import models
+import matplotlib.pyplot as plt
+
+stats = numpy.load('testfile.npy')
+
+Authors = models.Authors(stats, filter_unique = True)
+
+fig, ax = plt.subplots(1, 1)
+Authors.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', textsize = 8, width = 0.5)
+
+fig, ax = plt.subplots(1, 1)
+Authors.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', textsize = 8, width = 0.5)
+
+plt.show()
+```
+
+The 1st plot shows the number of followers of each appearing account in the data, with the color representing the number of followed accounts. The denser color has more accounts followed.
+
+The 2nd plot shows the number of sample tweets in the data of each appearing account, with the color representing the number of followers. The denser color has more followers.
+
+
+
+
