@@ -3,7 +3,7 @@ from statistweepy.models import Authors
 from statistweepy.models import Tweets
 import matplotlib.pyplot as plt
 
-stats = numpy.load('/home/asus/statistweepy/testfile.npy')
+stats = numpy.load('testfile.npy')
 tweets = Tweets(stats)
 
 Model = Authors(stats)
