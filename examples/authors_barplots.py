@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 stats = numpy.load('testfile.npy')
 tweets = Tweets(stats)
 
-Model = Authors(stats)
+Model = Authors(tweets)
 
 fig, ax = plt.subplots(1, 1)
 Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', height = 0.5, color = (1,0,0,1))
