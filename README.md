@@ -32,17 +32,18 @@ Currently, there are only two models, setup in `Authors` class and `Splits` clas
 ```
 import numpy
 from statistweepy.models import Authors
+from statistweepy.models import Tweets
 import matplotlib.pyplot as plt
 
 stats = numpy.load('testfile.npy')
 
-Authors = Authors(stats, filter_unique = True)
+Model = Authors(Tweets(stats))
 
 fig, ax = plt.subplots(1, 1)
-Authors.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
+Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
 
 fig, ax = plt.subplots(1, 1)
-Authors.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
+Model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
 
 plt.show()
 ```
