@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 stats = numpy.load('testfile.npy')
 tweets = Tweets(stats)
 
-Model = Splits(stats)
+Model = Splits(tweets)
 
 Adjust = Adjustment(freq_lim = (5, 199), exclude = ('the', 'for'), char_lim = (3, 11111));
 
