@@ -4,7 +4,7 @@ from statistweepy.models import Hashtags
 from statistweepy.adjustment import Adjustment
 import matplotlib.pyplot as plt
 
-stats = numpy.load('/home/asus/statistweepy/testfile.npy')
+stats = numpy.load('testfile.npy')
 tweets = Tweets(stats)
 
 Model = Hashtags(tweets)
