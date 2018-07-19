@@ -7,6 +7,7 @@ Requirements :
 - Matplotlib
 
 Author : Arief Anbiya (anbarief@live.com), written in Python 3.
+Articles : https://www.linkedin.com/pulse/model-data-analyzing-twitter-using-python-tweepy-arief-anbiya/?published=t
 
 ## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
 
