@@ -60,7 +60,47 @@ This will create a `Tweets` object named `tweets`, which is a list-like object c
 .
 [191]: VIDEO: Antusias Warga Kroasia Jelang Final Piala Dunia 2018 https://t.co/68bQixTqNF
 ```
-As we you see above, `len(tweets)` will give `192`.
+As you can see above, `len(tweets)` will give `192`.
+
+Filtering by an author's name:
+
+```
+>>> tweets.filter_by_name('Reuters Top News')
+[0]: Iran's supreme leader calls for government to be backed in face of U.S. sanctions https://t.co/E8EDZBO0MP
+.
+.
+.
+[30]: Iraq police fire in air as protesters try to storm Basra government building https://t.co/LsfQe5Hrrb https://t.co/wTbCUFhTdy
+```
+
+Filtering by an author's username:
+
+```
+>>> tweets.filter_by_name('Reuters')
+[0]: Iran's supreme leader calls for government to be backed in face of U.S. sanctions https://t.co/E8EDZBO0MP
+.
+.
+.
+[30]: Iraq police fire in air as protesters try to storm Basra government building https://t.co/LsfQe5Hrrb https://t.co/wTbCUFhTdy
+```
+Filtering by time interval: (in this example we will get only tweets appeared between 1 Jan 2017 and 1 Jan 2018)
+
+```
+>>> import datetime
+>>> a = datetime.datetime(2017, 1, 1); b = datetime.datetime(2018, 1, 1)
+>>> tweets.filter_by_time_interval([a,b])
+[0]: Masyarakat Temanggung dukung Asian Games 2018. Hokyaaa !!! \U0001f604
+~ @ganjarpranowo ~
+
+#Temanggung  
+#AsianGames2018\u2026 https://t.co/gq6IwXyYWZ
+.
+.
+.
+[1]: Cecil Wayne Ratliff - Wrote the database program Vulcan. https://t.co/14B54dcKW6
+>>> tweets_filtered = _
+```
+As you can see, only two tweets that match.
 
 -------
 
