@@ -46,7 +46,7 @@ class Tweets(list):
     """
 
     def __init__(self, tweets, **kwargs):
-        
+
         tweets = utils.filter_unique(tweets)
 
         super().__init__(tweets, **kwargs)
@@ -84,15 +84,36 @@ class Tweets(list):
         return max(self, key=operator.attrgetter('created_at'))
 
     def filter_by_username(self, username):
+
         filtered = Tweets(filter(lambda x: x.author.screen_name == username, self))
+
+        try:
+            filtered.__repr__()
+        except:
+            return None
+
         return filtered
 
     def filter_by_name(self, name):
+
         filtered = Tweets(filter(lambda x: x.author.name == name, self))
+
+        try:
+            filtered.__repr__()
+        except:
+            return None
+        
         return filtered
 
     def filter_by_time_interval(self, interval):
+
         filtered = Tweets(filter(lambda x: interval[0] <= x.created_at <= interval[1], self))
+
+        try:
+            filtered.__repr__()
+        except:
+            return None
+        
         return filtered
 
     def time_distribution(self, unit = 'hour', output = 'frequency'):

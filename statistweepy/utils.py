@@ -1,10 +1,10 @@
 import tweepy
 
-def filter_unique(tweet_stats_list, output = 'status'):
-    
+def filter_unique(tweet_stats, output = 'status'):
+
     uniques = set()
     
-    for tweet in tweet_stats_list:
+    for tweet in tweet_stats:
 
         if not isinstance(tweet, tweepy.Status):
             raise TypeError('Each element must be of tweepy.Status object')
