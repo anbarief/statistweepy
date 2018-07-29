@@ -37,7 +37,7 @@ This first creates an 'authentication' object of `Authentication`, which access 
 
 Currently, there are three models, setup in `Tweets`, `Authors`, and `Splits` class. 
 
-------
+---------------------------
 
 We will see how we can use `Tweets` class:
 
@@ -102,7 +102,7 @@ Filtering by time interval: (in this example we will get only tweets appeared be
 ```
 As you can see, only two tweets that match.
 
--------
+------------------------
 
 We will see one example of using `Authors` model:
 
