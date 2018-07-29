@@ -36,7 +36,13 @@ Collect = Collection(Auth)
 
 data = Collect.collect_home()
 ```
-This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. 
+This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. To use the Twitter data, get the first index of `data`, `stats = data[0]`. The 2nd index is the ... collection time.
+
+```>>> print(data[1])
+hour_min_16_53_date_29_7_2018
+```
+
+----------------------------
 
 ## Analyze Data :
 
