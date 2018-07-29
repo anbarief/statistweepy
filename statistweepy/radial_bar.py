@@ -115,7 +115,7 @@ def rbar_B(ax, radii, radius, col, label, bar_width = 5, text_size = 7):
    
       ax.text(tx, \
                ty, \
-               lab + ' ('+str(radii[index])+')', weight = 'bold', ha = 'center'\
+               lab + ' ('+str(radii[index])+')', ha = 'center'\
                #rotation = deg)
                 , size = text_size
                )

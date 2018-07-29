@@ -379,7 +379,7 @@ class Splits(object):
             
         plt.tight_layout()
 
-    def rbar_plot(self, ax, mode = 'A', adjustment = None, base_radius = 50, bar_width = 6, color = (0, 0, 1, 1), incolor_rt = False, text_size = 7):
+    def rbar_plot(self, ax, mode = 'A', adjustment = None, base_radius = 50, bar_width = 6, color = (0, 0, 1, 1), text_size = 7):
 
         """
         This method gives a radial bar plot of the splits frequency.\n
@@ -402,15 +402,7 @@ class Splits(object):
 
             color = mplcolors.hex2color(mplcolors.cnames[color])        
 
-        if incolor_rt:
-
-            sorted_total_rts = [utils.total_rts(self.tweets, string_inclusion = split) for split in sorted_splits_by_freq]
-            max_total_rts = max(sorted_total_rts)
-            colors = [(color[0]*total_rt/max_total_rts, color[1]*total_rt/max_total_rts, color[2]*total_rt/max_total_rts, 1) for total_rt in sorted_total_rts]
-
-        else:
-
-            colors = [color]*len(splits_freq)
+        colors = [color]*len(splits_freq)
 
         if mode == 'A':
             
@@ -426,12 +418,6 @@ class Splits(object):
             
         ax.tick_params(colors=(0,0,0,0))
 
-        if incolor_rt != None:
-            
-            ax.set_xlabel('Splits frequency count. (color : total RTs)')
-
-        else :
-
-            ax.set_xlabel('Splits frequency count.')
+        ax.set_xlabel('Splits frequency count.')
         
         plt.tight_layout()
