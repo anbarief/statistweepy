@@ -35,7 +35,36 @@ This first creates an 'authentication' object of `Authentication`, which access 
 
 ## Analyze Data :
 
-Currently, there are only two models, setup in `Authors` class and `Splits` class. We will see one example of using `Authors` model.
+Currently, there are three models, setup in `Tweets`, `Authors`, and `Splits` class. 
+
+------
+
+We will see how we can use `Tweets` class:
+
+```
+import numpy
+from statistweepy.models import Tweets
+
+stats = numpy.load('testfile.npy')
+tweets = Tweets(stats)
+```
+This will create a `Tweets` object named `tweets`, which is a list-like object containing tweets (`tweepy.models.Status` objects).
+
+```
+>>> tweets
+[0]: \U0001f60d
+
+#FRACRO // #WorldCupFinal https://t.co/w227YQWA0A
+.
+.
+.
+[191]: VIDEO: Antusias Warga Kroasia Jelang Final Piala Dunia 2018 https://t.co/68bQixTqNF
+```
+As we you see above, `len(tweets)` will give `192`.
+
+-------
+
+We will see one example of using `Authors` model:
 
 ```
 import numpy
@@ -48,10 +77,10 @@ stats = numpy.load('testfile.npy')
 Model = Authors(Tweets(stats))
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
+Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', textsize = 8, height = 0.5, color = (0, 0.6, 1, 1))
+Model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
 
 plt.show()
 ```
