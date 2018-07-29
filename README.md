@@ -126,13 +126,13 @@ import matplotlib.pyplot as plt
 
 stats = numpy.load('testfile.npy')
 
-Model = Authors(Tweets(stats))
+model = Authors(Tweets(stats))
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
 
 plt.show()
 ```
@@ -146,37 +146,37 @@ The 2nd plot shows the number of sample tweets in the data of each appearing acc
 
 ------------------------
 
-We will see one example of using `Authors` model:
+We will see one example of using `Splits` model:
 
 ```
 import numpy
-from statistweepy.models import Authors
+from statistweepy.models import Splits
 from statistweepy.models import Tweets
+from statistweepy.models import Adjustment
 import matplotlib.pyplot as plt
 
-stats = numpy.load('testfile.npy')
+stats = numpy.load('/home/asus/statistweepy/testfile.npy')
+tweets = Tweets(stats)
+model = Splits(tweets)
 
-Model = Authors(Tweets(stats))
+adjust = Adjustment(freq_lim = (5, 199), exclude = ('the', 'for'), char_lim = (3, 11111));
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+
+model.rbar_plot(ax, mode = 'A', adjustment = adjust, color  = 'orange', bar_width = 4, text_size = 10, base_radius = 30)
 
 fig, ax = plt.subplots(1, 1)
-Model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+model.rbar_plot(ax, mode = 'B', adjustment = adjust, color  = 'pink', bar_width = 4, text_size = 10, base_radius = 100)
 
 plt.show()
 ```
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_1.png)
 
-The 1st plot shows the number of followers of each appearing account in the data, with the color representing the number of followed accounts. The denser color has more accounts followed.
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_3.png)
 
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_2.png)
+The 1st plot shows the splits frequency in radial bar chart in mode `'A'`.
 
-The 2nd plot shows the number of sample tweets in the data of each appearing account, with the color representing the number of followers. The denser color has more followers.
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_4.png)
 
-
-
-
-
+The 2nd plot shows the splits frequency in radial bar chart in mode `'B'`.
 
 
