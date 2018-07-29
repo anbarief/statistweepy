@@ -23,13 +23,18 @@ https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
 Here is an example of how we can collect the data : 
 
 ```
-import statistweepy.collection as collection
+from statistweepy.collection import Authentication
+from statistweepy.collection import Collection
+
 consumer_key = '****'
 consumer_secret = '****'
 access_token = '****'
 access_secret = '****'
-init = collection.Authentication(consumer_key, consumer_secret, access_token, access_secret) 
-collect = collection.Collection(Init)
+
+Auth = Authentication(consumer_key, consumer_secret, access_token, access_secret)
+Collect = Collection(Auth)
+
+data = Collect.collect_home()
 ```
 This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. 
 
