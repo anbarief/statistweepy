@@ -116,11 +116,11 @@ class Tweets(list):
         
         return filtered
 
-    def time_distribution(self, unit = 'hour', output = 'frequency'):
+    def time_distribution(self, unit = 'hour', output = 'frequency', cont_hist = False):
 
-        if not any([unit == 'year', unit == 'month', unit == 'day', unit == 'hour', unit == 'minute', unit == 'continuous']):
-            raise AssertionError(' The argument unit must be one of \'year\',  \'month\',  \'day\',  \'hour\',  \'minute\', or \'continuous\'. ')
-        
+        if not any([unit == 'year', unit == 'month', unit == 'day', unit == 'hour']):
+            raise AssertionError(' The argument unit must be one of \'year\',  \'month\',  \'day\', or \'hour\'. ')
+            
         unicity_key = operator.attrgetter('created_at.'+unit)
         tweets = sorted(self, key=unicity_key)
         distribution = {}
@@ -142,6 +142,43 @@ class Tweets(list):
             else:
 
                 raise AssertionError(' The argument output must be either \'frequency\', or \'tweets\'. ')
+
+        if cont_hist:
+
+            axes = cont_hist[0]
+
+            if unit == 'year':
+                
+                xt = [tweet.created_at.year + (tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/30)/12 \
+                          for tweet in self]
+
+            elif unit == 'month':
+                
+                xt = [(tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/30) \
+                          for tweet in self]
+
+            elif unit == 'day':
+                
+                xt = [(tweet.created_at.day + tweet.created_at.hour/24) \
+                          for tweet in self]
+
+            elif unit == 'hour':
+
+                xt = [tweet.created_at.hour + (tweet.created_at.minute + tweet.created_at.second/60)/60 \
+                          for tweet in self]
+
+            a = int(min(xt)) + 1
+            b = int(max(xt)) + 1
+                
+            ticks = range(a-1, b+2)
+
+            histogram = axes.hist(xt, bins = cont_hist[1])
+            axes.set_xticks(ticks)
+            axes.set_xticklabels([str(i) for i in ticks])
+            axes.set_xlabel(unit)
+            axes.set_ylabel('frequency')
+            
+            return distribution, histogram
 
         return distribution
 
