@@ -1,6 +1,6 @@
 # Author : anbarief@live.com
-
 import itertools
+import pytz
 import copy
 import numpy
 import matplotlib.pyplot as plt
@@ -44,32 +44,75 @@ class Tweets(list):
     """
     Tweets model is a list-like object containing \'tweepy.models.Status\' objects.
     """
-
-    def __init__(self, tweets, **kwargs):
+    
+    def __init__(self, tweets, repr_mode = 'texts'):
 
         tweets = utils.filter_unique(tweets)
-
-        super().__init__(tweets, **kwargs)
         
+        super().__init__(tweets)
+
     def __repr__(self):
 
-        try:
-            head = self[0].text
-        except:
-            head = self[0].full_text
-
+        head = self[0].author.screen_name
+            
         if len(self) > 1:
 
-            try:
-                tail = self[-1].text
-            except:
-                tail = self[-1].full_text
+            tail = self[-1].author.screen_name
 
-            return '[0]: ' + head + '\n.'*3 + '\n[{}]: '.format(len(self)-1) + tail
+            return '[[0]: by @' + head + ', ...... , ' + '[{}]: by @'.format(len(self)-1) + tail + ']'
+        
 
         else:
 
-            return '[0]: ' + head
+            return '[[0]: by @' + head + ']'
+
+    def append(self, tweet):
+
+        if not isinstance(tweet, self[0].__class__):
+            raise TypeError('tweet must be of tweepy.models.Status object')
+
+        super().append(tweet)
+
+    def extend(self, tweets):
+
+        if not isinstance(tweets, Tweets):
+            raise TypeError('tweets must be of statistweepy.models.Status object')
+
+        super().extend(tweets)
+
+    def insert(self, index, tweet):
+
+        if not isinstance(tweet, self[0].__class__):
+            raise TypeError('tweet must be of tweepy.models.Status object')
+
+        super().insert(index, tweet)
+
+    def sort(self, by = 'time', reverse = False):
+
+        if by == 'time':
+            
+            in_key = operator.attrgetter('created_at')
+
+        elif by == 'retweet_count':
+
+            in_key = operator.attrgetter(by)
+
+        elif by == 'favorite_count':
+
+            in_key = operator.attrgetter(by)
+
+        elif by == 'username':
+
+            in_key = operator.attrgetter('author.screen_name')
+
+        elif by == 'length':
+
+            try:
+                in_key = lambda x: len(x.text)
+            except:
+                in_key = lambda x: len(x.full_text)
+        
+        super().sort(key = in_key, reverse = reverse)
 
     @property
     def sorted_by_time(self):
@@ -82,6 +125,50 @@ class Tweets(list):
     @property
     def newest(self):
         return max(self, key=operator.attrgetter('created_at'))
+
+    def authors(self):
+
+        unicity_key = operator.attrgetter('author.screen_name')
+        tweets = sorted(self, key = unicity_key)
+
+        authors = {}
+
+        for screen_name, author_tweets in itertools.groupby(tweets, key=unicity_key):
+            
+            author_tweets = list(author_tweets)
+            author = author_tweets[0].author
+
+            authors[screen_name] = (author.name, Tweets(author_tweets))
+
+        return authors
+
+    def view(self, start, end, attr = 'text'):
+
+        viewed = ''
+        index = start
+        attr_dict = {'retweet_count' : 'retweet_count', \
+                     'favorite_count' : 'favorite_count', \
+                     'language' : 'lang', \
+                     'time' : 'created_at'}
+        
+        for tweet in self[start:end+1]:
+
+            if attr == 'text':
+
+                try:
+                    new = tweet.text.encode()
+
+                except:
+                    new = tweet.full_text.encode()
+
+            else:
+
+                new = getattr(tweet, attr_dict[attr])
+
+            viewed += '[{}] by @{} : {}\n'.format(index, tweet.author.screen_name, new)
+            index += 1
+    
+        print(viewed)
 
     def filter_by_username(self, username):
 
@@ -116,7 +203,19 @@ class Tweets(list):
         
         return filtered
 
-    def time_distribution(self, unit = 'hour', output = 'frequency', cont_hist = False):
+    def apply_timezone(self, timezone = 'Singapore'):
+        
+        for tweet in self:
+
+            time = tweet.created_at
+            
+            if time.tzinfo is None:
+                time = time.replace(tzinfo = pytz.utc)
+
+            tz = pytz.timezone(timezone)
+            tweet.created_at = time.astimezone(tz)
+
+    def _time_distribution(self, unit = 'hour', output = 'frequency', cont_hist = False):
 
         if not any([unit == 'year', unit == 'month', unit == 'day', unit == 'hour']):
             raise AssertionError(' The argument unit must be one of \'year\',  \'month\',  \'day\', or \'hour\'. ')
@@ -149,30 +248,35 @@ class Tweets(list):
 
             if unit == 'year':
                 
-                xt = [tweet.created_at.year + (tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/30)/12 \
+                xt = [tweet.created_at.year + (tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/31)/12 \
                           for tweet in self]
+
+                a = int(min(xt))
+                b = int(max(xt))
+                ticks = range(a-1, b+2)
 
             elif unit == 'month':
                 
-                xt = [(tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/30) \
+                xt = [(tweet.created_at.month + (tweet.created_at.day + tweet.created_at.hour/24)/31) \
                           for tweet in self]
+
+                ticks = range(1, 13)
 
             elif unit == 'day':
                 
                 xt = [(tweet.created_at.day + tweet.created_at.hour/24) \
                           for tweet in self]
 
+                ticks = range(1, 32)
+
             elif unit == 'hour':
 
                 xt = [tweet.created_at.hour + (tweet.created_at.minute + tweet.created_at.second/60)/60 \
                           for tweet in self]
-
-            a = int(min(xt)) + 1
-            b = int(max(xt)) + 1
                 
-            ticks = range(a-1, b+2)
+                ticks = range(0, 25)
 
-            histogram = axes.hist(xt, bins = cont_hist[1])
+            histogram = axes.hist(xt, **cont_hist[1])
             axes.set_xticks(ticks)
             axes.set_xticklabels([str(i) for i in ticks])
             axes.set_xlabel(unit)
@@ -182,7 +286,7 @@ class Tweets(list):
 
         return distribution
 
-    
+   
 class Authors(object):
 
     """
@@ -201,10 +305,12 @@ class Authors(object):
 
         unicity_key = operator.attrgetter('author.screen_name')
         tweets = sorted(tweets, key=unicity_key)
+        self._tweets = tweets
         self.authors_tweets = {}
         self.followers_count = {}
         self.following_count = {}
         self.total_tweets = {}
+        self.likes_count = {}
         self.sample_count = {}
         
         for screen_name, author_tweets in itertools.groupby(tweets, key=unicity_key):
@@ -212,11 +318,13 @@ class Authors(object):
             author_tweets = list(author_tweets)
             author = author_tweets[0].author
 
-            self.authors_tweets[screen_name] = (author.name, author_tweets)
+            self.authors_tweets[screen_name] = (author.name, Tweets(author_tweets))
             self.followers_count[screen_name] = author.followers_count
             self.following_count[screen_name] = author.friends_count
             self.total_tweets[screen_name] = author.statuses_count
+            self.likes_count[screen_name] = author.favourites_count
             self.sample_count[screen_name] = len(author_tweets)
+
 
     def hbar_plot(self, ax, measurement = 'Followers', color = (0,0,1,1), incolor_measurement = None, width = 1, space = True, text_size = 7):
 
@@ -406,7 +514,7 @@ class Splits(object):
         ax.set_yticklabels(sorted_splits_by_freq, rotation = 'horizontal', size = text_size)
         ax.set_ylim([1 - width/2 - space, max(ytick_pos) + width/2 + space])
 
-        if incolor_rt != None:
+        if incolor_rt:
             
             ax.set_xlabel('Splits frequency count. (color : total RTs)')
 
