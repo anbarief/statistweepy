@@ -29,7 +29,7 @@ class Collection(object):
         self.api = self.auth_object.api
         self.collection = None
 
-    def collect_home(self, method = 'Default', **kwargs):
+    def collect_home(self, method = 'Default', n = 20, **kwargs):
 
         if method == 'Default':
 
