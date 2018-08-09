@@ -2,6 +2,7 @@
 
 import tweepy
 from tweepy import OAuthHandler
+from statistweepy import models
 import numpy
 import datetime
 
@@ -26,9 +27,9 @@ class Collection(object):
 
         self.auth_object = auth_object
         self.api = self.auth_object.api
-        self.collection = []
+        self.collection = None
 
-    def collect_home(self, method = 'Default', n = 20, **kwargs):
+    def collect_home(self, method = 'Default', **kwargs):
 
         if method == 'Default':
 
@@ -38,8 +39,7 @@ class Collection(object):
             
             public_stats = tweepy.Cursor(self.api.home_timeline, **kwargs).items(n)
         
-        self.stats = [stat for stat in public_stats]
-        self.collection.extend(self.stats)
+        stats = [stat for stat in public_stats]
 
         date = datetime.datetime.now()
         time = date.timetuple()
@@ -50,17 +50,16 @@ class Collection(object):
         mnt = time.tm_min
         time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
             str(hour), str(mnt), str(day), str(month), str(year))
-        self.time_collected = time_string;
+        self.collection_time = time_string;
         
-        return self.stats, self.time_collected
+        self.collection = models.Tweets(stats)
 
     def collect_user(self, username, n = 20, **kwargs):
 
         user_stats = tweepy.Cursor(self.api.user_timeline, \
                                    screen_name = username, **kwargs).items(n)
 
-        self.stats = [stat for stat in user_stats]
-        self.collection.extend(self.stats)
+        stats = [stat for stat in user_stats]
 
         date = datetime.datetime.now()
         time = date.timetuple()
@@ -71,9 +70,9 @@ class Collection(object):
         mnt = time.tm_min
         time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
             str(hour), str(mnt), str(day), str(month), str(year))
-        self.time_collected = time_string;
+        self.collection_time = time_string;
 
-        return self.stats, self.time_collected
+        self.collection = models.Tweets(stats)
 
     @staticmethod
     def save(*args, **kwargs):
