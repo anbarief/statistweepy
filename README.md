@@ -1,5 +1,7 @@
 # Statistweepy (v.0.1)
-A (still in work) simple tool that use tweepy to collect and use Twitter data. The data structure is simple `Status` object collected using tweepy. To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
+A (still improving) simple tool to Analyze Twitter Data. 
+
+To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
 
 Requirements :
 - [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
@@ -9,8 +11,6 @@ Requirements :
 Author : Arief Anbiya (anbarief@live.com), written in Python 3.
 
 Useful article(s) : 
-
-https://www.linkedin.com/pulse/model-data-analyzing-twitter-using-python-tweepy-arief-anbiya/?published=t
 
 https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
 
@@ -36,12 +36,7 @@ Collect = Collection(Auth)
 
 data = Collect.collect_home()
 ```
-This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. To use the Twitter data, get the first index of `data`, `stats = data[0]`. The 2nd index is the collection time.
-
-```
->>> print(data[1])
-hour_min_16_53_date_29_7_2018
-```
+This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. To use the Twitter data, get `data.collection`.
 
 ----------------------------
 
@@ -62,58 +57,23 @@ tweets = Tweets(stats)
 ```
 This will create a `Tweets` object named `tweets`, which is a list-like object containing tweets (`tweepy.models.Status` objects).
 
-```
->>> tweets
-[0]: \U0001f60d
-
-#FRACRO // #WorldCupFinal https://t.co/w227YQWA0A
-.
-.
-.
-[191]: VIDEO: Antusias Warga Kroasia Jelang Final Piala Dunia 2018 https://t.co/68bQixTqNF
-```
-As you can see above, `len(tweets)` will give `192`.
-
-Filtering by an author's name:
+View tweets by specific interval :
 
 ```
->>> tweets.filter_by_name('Reuters Top News')
-[0]: Iran's supreme leader calls for government to be backed in face of U.S. sanctions https://t.co/E8EDZBO0MP
-.
-.
-.
-[30]: Iraq police fire in air as protesters try to storm Basra government building https://t.co/LsfQe5Hrrb https://t.co/wTbCUFhTdy
+>>> tweets.view(0, 3)
+[0] by @FIFAWorldCup : b'\xf0\x9f\x98\x8d\n\n#FRACRO // #WorldCupFinal https://t.co/w227YQWA0A'
+[1] by @Reuters : b"Iran's supreme leader calls for government to be backed in face of U.S. sanctions https://t.co/E8EDZBO0MP"
+[2] by @TEDTalks : b'Play with your garbage. It\xe2\x80\x99s for science! https://t.co/pxweO6XMIP'
+[3] by @AdamMGrant : b'When we\xe2\x80\x99re deprived of freedom at work, we become more controlling at home. Granting people autonomy on the job isn\xe2\x80\xa6 https://t.co/nS7QZW7b60'
 ```
 
-Filtering by an author's username:
-
 ```
->>> tweets.filter_by_name('Reuters')
-[0]: Iran's supreme leader calls for government to be backed in face of U.S. sanctions https://t.co/E8EDZBO0MP
-.
-.
-.
-[30]: Iraq police fire in air as protesters try to storm Basra government building https://t.co/LsfQe5Hrrb https://t.co/wTbCUFhTdy
+>>> tweets.view(0, 3, attr = 'retweet_count')
+[0] by @FIFAWorldCup : 1101
+[1] by @Reuters : 1
+[2] by @TEDTalks : 3
+[3] by @AdamMGrant : 7
 ```
-Filtering by time interval: (in this example we will get only tweets appeared between 1 Jan 2017 and 1 Jan 2018)
-
-```
->>> import datetime
->>> a = datetime.datetime(2017, 1, 1); b = datetime.datetime(2018, 1, 1)
->>> tweets.filter_by_time_interval([a,b])
-[0]: Masyarakat Temanggung dukung Asian Games 2018. Hokyaaa !!! \U0001f604
-~ @ganjarpranowo ~
-
-#Temanggung  
-#AsianGames2018\u2026 https://t.co/gq6IwXyYWZ
-.
-.
-.
-[1]: Cecil Wayne Ratliff - Wrote the database program Vulcan. https://t.co/14B54dcKW6
->>> tweets_filtered = _
-```
-As you can see, only two tweets that match.
-
 ------------------------
 
 We will see one example of using `Authors` model:
