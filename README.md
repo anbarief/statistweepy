@@ -1,6 +1,6 @@
 # Statistweepy
 
-## Data Analysis of Twitter in Python.
+## Data Analysis for Twitter in Python.
 
 Requirements :
 - [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
