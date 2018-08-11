@@ -89,10 +89,10 @@ stats = numpy.load('testfile.npy')
 model = Authors(Tweets(stats))
 
 fig, ax = plt.subplots(1, 1)
-model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, color = (0, 0.6, 1, 1))
 
 fig, ax = plt.subplots(1, 1)
-model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, width = 0.5, color = (0, 0.6, 1, 1))
+model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, color = (0, 0.6, 1, 1))
 
 plt.show()
 ```
