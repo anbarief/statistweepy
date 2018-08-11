@@ -30,9 +30,4 @@ fig, ax = plt.subplots(1, 1)
 #Radial bar chart
 model.rbar_plot(ax, adjustment = adjustment, color = 'blue', bar_width = 3, base_radius = 100)
 
-fig, ax = plt.subplots(1, 1)
-
-#Radial bar chart
-model.rbar_plot(ax, mode = 'B', adjustment = adjustment, color = 'blue', bar_width = 3, base_radius = 100)
-
 plt.show(block = False)
