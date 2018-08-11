@@ -9,10 +9,13 @@ import datetime
 
 class Authentication(object):
 
+    __slots__ = ('consumer_key', 'consumer_secret', 'access_token', 'access_secret', \
+                 'auth', 'api')
+
     def __init__(self, consumer_key, consumer_secret, access_token, access_secret):
 
         self.consumer_key = consumer_key
-        self.consunmer_secret = consumer_secret
+        self.consumer_secret = consumer_secret
         self.access_token = access_token
         self.access_secret = access_secret
 
@@ -22,6 +25,8 @@ class Authentication(object):
 
 
 class Collection(object):
+
+    __slots__ = ('auth_object', 'api', 'collection', 'collection_time')
 
     def __init__(self, auth_object):
 
@@ -41,17 +46,7 @@ class Collection(object):
         
         stats = [stat for stat in public_stats]
 
-        date = datetime.datetime.now()
-        time = date.timetuple()
-        year = time.tm_year
-        month = time.tm_mon
-        day = time.tm_mday
-        hour = time.tm_hour
-        mnt = time.tm_min
-        time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
-            str(hour), str(mnt), str(day), str(month), str(year))
-        self.collection_time = time_string;
-        
+        self.collection_time = datetime.datetime.now();
         self.collection = models.Tweets(stats)
 
     def collect_user(self, username, n = 20, **kwargs):
@@ -61,17 +56,7 @@ class Collection(object):
 
         stats = [stat for stat in user_stats]
 
-        date = datetime.datetime.now()
-        time = date.timetuple()
-        year = time.tm_year
-        month = time.tm_mon
-        day = time.tm_mday
-        hour = time.tm_hour
-        mnt = time.tm_min
-        time_string = 'hour_min_{}_{}_date_{}_{}_{}'.format(\
-            str(hour), str(mnt), str(day), str(month), str(year))
-        self.collection_time = time_string;
-
+        self.collection_time = datetime.datetime.now();
         self.collection = models.Tweets(stats)
 
     @staticmethod

@@ -1,10 +1,11 @@
 import tweepy
+import string
 
-def filter_unique(tweet_stats, output = 'status'):
+def filter_unique(tweets):
 
     uniques = set()
     
-    for tweet in tweet_stats:
+    for tweet in tweets:
 
         if not isinstance(tweet, tweepy.Status):
             raise TypeError('Each element must be of tweepy.Status object')
@@ -18,34 +19,56 @@ def filter_unique(tweet_stats, output = 'status'):
 
             uniques.add(tweet.id)
 
-            if output == 'text':
-
-                try:
-                    yield tweet.text
-                except:
-                    yield tweet.full_text
-
             yield tweet
 
-def split_texts(texts):
+def clean_text(text):
 
+    punct = string.punctuation
+    printable = string.printable
+    whitespace = string.whitespace
+
+    table = text.maketrans({key: None for key in printable})
+    undef = set(text.translate(table))
+
+    table = text.maketrans({key: None for key in undef})
+    removed_undef = text.translate(table)
+
+    table = text.maketrans({key: None for key in punct})
+    cleaned = removed_undef.translate(table)
+
+    table = text.maketrans({key: ' ' for key in whitespace})
+    cleaned = cleaned.translate(table)
+
+    return cleaned
+
+def split_texts(texts, naive):
+
+    if naive:
         for text in texts:
-
             yield text.split()
+    else:
+        for text in texts:
+            yield clean_text(text).split()
 
-def total_rts(tweet_stats_list, string_inclusion = False):
+def total_rts(tweets, string_inclusion = False, naive = True):
 
     result = 0
 
     if not string_inclusion :
 
-        result = sum([tweet.retweet_count for tweet in tweet_stats_list]);
+        result = sum([tweet.retweet_count for tweet in tweets]);
 
     else:
 
-        try:
-            result = sum([tweet.retweet_count for tweet in tweet_stats_list if string_inclusion in tweet.full_text.split()])
-        except:
-            result = sum([tweet.retweet_count for tweet in tweet_stats_list if string_inclusion in tweet.text.split()])
-
+        if naive:
+            try:
+                result = sum([tweet.retweet_count for tweet in tweets if string_inclusion in tweet.full_text.split()])
+            except:
+                result = sum([tweet.retweet_count for tweet in tweets if string_inclusion in tweet.text.split()])
+        else:
+            try:
+                result = sum([tweet.retweet_count for tweet in tweets if string_inclusion in clean_text(tweet.full_text).split()])
+            except:
+                result = sum([tweet.retweet_count for tweet in tweets if string_inclusion in clean_text(tweet.text).split()])
+            
     return result
