@@ -1,12 +1,13 @@
 # Statistweepy
-A (still improving) simple tool to Analyze Twitter Data. 
 
-To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
+## Data Analysis of Twitter in Python.
 
 Requirements :
 - [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
 - Numpy
 - Matplotlib
+
+To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
 
 Author : Arief Anbiya (anbarief@live.com), written in Python 3.
 
@@ -34,7 +35,8 @@ access_secret = '****'
 Auth = Authentication(consumer_key, consumer_secret, access_token, access_secret)
 Collect = Collection(Auth)
 
-data = Collect.collect_home()
+Collect.collect_home()
+tweets = Collect.collection
 ```
 This first creates an 'authentication' object of `Authentication`, which access the Twitter API. This object is then required as input for `Collection` class. To use the Twitter data, get `data.collection`.
 
