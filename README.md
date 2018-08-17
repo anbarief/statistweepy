@@ -33,6 +33,7 @@ model.hbar_plot(ax, meas = 'total_tweets', \
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_1.png)
 
 
@@ -56,6 +57,7 @@ model.hbar2sided_plot(ax, meas_left = 'total_tweets', \
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_2.png)
 
 
@@ -75,6 +77,7 @@ model.scatter_plot(ax, incolor_meas = 'sample_count', \
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_3.png)
 
 
@@ -90,8 +93,8 @@ model = models.Splits(tweets, naive = False)
 #Excluded words
 exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
               'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
-#Create an adjustment : only include words that appeared between 80 to 10000 times,
-# and each the length of each word must be between 2 to 100.
+#Create an adjustment : only include words that appeared between 110 to 10000 times,
+# and each the length of each word must be between 3 to 100.
 adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
 
 fig, ax = plt.subplots(1, 1)
@@ -99,6 +102,7 @@ model.hbar_plot(ax, adjustment = adjustment, color = 'blue', incolor  = 'likes',
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_4.png)
 
 
@@ -114,8 +118,8 @@ model = models.Splits(tweets, naive = False)
 #Excluded words
 exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
               'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
-#Create an adjustment : only include words that appeared between 80 to 10000 times,
-# and each the length of each word must be between 2 to 100.
+#Create an adjustment : only include words that appeared between 110 to 10000 times,
+# and each the length of each word must be between 3 to 100.
 adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
 
 fig, ax = plt.subplots(1, 1)
@@ -123,6 +127,7 @@ model.hbar_plot(ax, adjustment = adjustment, color = 'blue', incolor  = 'retweet
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_5.png)
 
 
@@ -138,8 +143,8 @@ model = models.Splits(tweets, naive = False)
 #Excluded words
 exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
               'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
-#Create an adjustment : only include words that appeared between 80 to 10000 times,
-# and each the length of each word must be between 2 to 100.
+#Create an adjustment : only include words that appeared between 110 to 10000 times,
+# and each the length of each word must be between 3 to 100.
 adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
 
 fig, ax = plt.subplots(1, 1)
@@ -147,7 +152,33 @@ model.rbar_plot(ax, adjustment = adjustment, color = 'blue', bar_width = 3, base
 fig.show()
 ```
 result:
+
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_6.png)
+
+
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Splits(tweets, naive = False)
+
+#Excluded words
+exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
+              'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
+#Create an adjustment : only include words that appeared between 50 to 10000 times,
+# and each the length of each word must be between 3 to 100.
+adjustment = models.Adjustment(freq_lim = (50, 10000), char_lim = (3, 100), exclude = exc_splits)
+
+fig, ax = plt.subplots(1, 1)
+model.rbar_plot(ax, adjustment = adjustment, color = (1, 0, 0, 1), bar_width = 3, base_radius = 100, text_sizes = [12, 15])
+fig.show()
+```
+result:
+
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_7.png)
 
 
 ---------------------------------
@@ -214,68 +245,3 @@ View tweets by specific interval :
 [3] by @AdamMGrant : 7
 ```
 ------------------------
-
-We will see one example of using `Authors` model:
-
-```
-import numpy
-from statistweepy.models import Authors
-from statistweepy.models import Tweets
-import matplotlib.pyplot as plt
-
-stats = numpy.load('testfile.npy')
-
-model = Authors(Tweets(stats))
-
-fig, ax = plt.subplots(1, 1)
-model.hbar_plot(ax, measurement = 'Followers', incolor_measurement = 'Following', text_size = 8, color = (0, 0.6, 1, 1))
-
-fig, ax = plt.subplots(1, 1)
-model.hbar_plot(ax, measurement = 'Sample Tweets', incolor_measurement = 'Followers', text_size = 8, color = (0, 0.6, 1, 1))
-
-plt.show()
-```
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_1.png)
-
-The 1st plot shows the number of followers of each appearing account in the data, with the color representing the number of followed accounts. The denser color has more accounts followed.
-
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_2.png)
-
-The 2nd plot shows the number of sample tweets in the data of each appearing account, with the color representing the number of followers. The denser color has more followers.
-
-------------------------
-
-We will see one example of using `Splits` model:
-
-```
-import numpy
-from statistweepy.models import Splits
-from statistweepy.models import Tweets
-from statistweepy.models import Adjustment
-import matplotlib.pyplot as plt
-
-stats = numpy.load('/home/asus/statistweepy/testfile.npy')
-tweets = Tweets(stats)
-model = Splits(tweets)
-
-adjust = Adjustment(freq_lim = (5, 199), exclude = ('the', 'for'), char_lim = (3, 11111));
-
-fig, ax = plt.subplots(1, 1)
-
-model.rbar_plot(ax, mode = 'A', adjustment = adjust, color  = 'orange', bar_width = 4, text_size = 10, base_radius = 30)
-
-fig, ax = plt.subplots(1, 1)
-model.rbar_plot(ax, mode = 'B', adjustment = adjust, color  = 'pink', bar_width = 4, text_size = 10, base_radius = 100)
-
-plt.show()
-```
-
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_3.png)
-
-The 1st plot shows the splits frequency in radial bar chart in mode `'A'`.
-
-![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_4.png)
-
-The 2nd plot shows the splits frequency in radial bar chart in mode `'B'`.
-
-
