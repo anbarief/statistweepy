@@ -78,6 +78,78 @@ result:
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_3.png)
 
 
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Splits(tweets, naive = False)
+
+#Excluded words
+exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
+              'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
+#Create an adjustment : only include words that appeared between 80 to 10000 times,
+# and each the length of each word must be between 2 to 100.
+adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
+
+fig, ax = plt.subplots(1, 1)
+model.hbar_plot(ax, adjustment = adjustment, color = 'blue', incolor  = 'likes', text_sizes = [12, 15])
+fig.show()
+```
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_4.png)
+
+
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Splits(tweets, naive = False)
+
+#Excluded words
+exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
+              'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
+#Create an adjustment : only include words that appeared between 80 to 10000 times,
+# and each the length of each word must be between 2 to 100.
+adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
+
+fig, ax = plt.subplots(1, 1)
+model.hbar_plot(ax, adjustment = adjustment, color = 'blue', incolor  = 'retweets', text_sizes = [12, 15])
+fig.show()
+```
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_5.png)
+
+
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Splits(tweets, naive = False)
+
+#Excluded words
+exc_splits = ('the', 'if', 'The', 'is', 'on', 'are', 'we', 'on', 'at', 'not', 'of', 'to', \
+              'than', 'and', 'for', 'that', 'be', 'it', 'in', 'or', 'as')
+#Create an adjustment : only include words that appeared between 80 to 10000 times,
+# and each the length of each word must be between 2 to 100.
+adjustment = models.Adjustment(freq_lim = (110, 10000), char_lim = (3, 100), exclude = exc_splits)
+
+fig, ax = plt.subplots(1, 1)
+model.rbar_plot(ax, adjustment = adjustment, color = 'blue', bar_width = 3, base_radius = 100, text_sizes = [12, 15])
+fig.show()
+```
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_6.png)
+
+
 ---------------------------------
 
 ## Example Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
