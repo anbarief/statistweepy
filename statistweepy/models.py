@@ -244,7 +244,7 @@ class Authors(object):
     """
 
     __slots__ = ('_tweets', 'authors_tweets', 'followers_count', 'following_count', 'total_tweets', \
-                 'likes_count', 'sample_count')
+                 'total_likes', 'sample_count')
 
     def __init__(self, tweets):
 
@@ -258,7 +258,7 @@ class Authors(object):
         self.followers_count = {}
         self.following_count = {}
         self.total_tweets = {}
-        self.likes_count = {}
+        self.total_likes = {}
         self.sample_count = {}
         
         for screen_name, author_tweets in itertools.groupby(tweets, key=unicity_key):
@@ -270,17 +270,30 @@ class Authors(object):
             self.followers_count[screen_name] = author.followers_count
             self.following_count[screen_name] = author.friends_count
             self.total_tweets[screen_name] = author.statuses_count
-            self.likes_count[screen_name] = author.favourites_count
+            self.total_likes[screen_name] = author.favourites_count
             self.sample_count[screen_name] = len(author_tweets)
 
-    def hbar_plot(self, ax, measurement = 'Followers', color = (0,0,1,1), incolor_measurement = None, space = True, text_size = 7):
+    def hbar_plot(self, ax, meas = 'followers_count', **kwargs):
 
         """
         This method gives a horizontal bar plot of a measurement : followers count, friend count, total tweets, and sample tweets count.\n
         The first required argument is \'ax\' which should be an object of \'matplotlib.axes._subplots.AxesSubplot\'.
         """
 
-        viz.hbar_plot_Authors(self, ax, measurement = measurement, color = color, incolor_measurement = incolor_measurement, space = space, text_size = text_size)
+        viz.hbar_plot_Authors(self, ax, meas = meas, **kwargs)
+
+    def hbar2sided_plot(self, ax, meas_left = 'followers_count', meas_right = 'following_count', colors = ['red', 'blue'], **kwargs):
+
+        """
+        This method gives a horizontal bar plot of a measurement : followers count, friend count, total tweets, and sample tweets count.\n
+        The first required argument is \'ax\' which should be an object of \'matplotlib.axes._subplots.AxesSubplot\'.
+        """
+
+        viz.hbar2sided_plot_Authors(self, ax, meas_left = meas_left, meas_right = meas_right, colors = colors, **kwargs)
+
+    def scatter_plot(self, ax, meas_x = 'followers_count', meas_y = 'following_count', **kwargs):
+
+        viz.scatter_plot_Authors(self, ax, meas_x=meas_x, meas_y=meas_y, **kwargs)
 
 
 class Splits(object):
@@ -364,16 +377,16 @@ class Splits(object):
         
         return self.adjusted
 
-    def hbar_plot(self, ax, adjustment = None, color = (0, 0.6, 1, 1), incolor_rt = False, space = True, text_size = 7):
+    def hbar_plot(self, ax, adjustment = None, **kwargs):
 
         """
         This method gives a horizontal bar plot of the splits frequency.\n
         The first required argument is \'ax\' which should be an object of \'matplotlib.axes._subplots.AxesSubplot\'.\n    
         """
 
-        viz.hbar_plot_Splits(self, ax, adjustment = adjustment, color = color, incolor_rt = incolor_rt, space = space, text_size = text_size)
+        viz.hbar_plot_Splits(self, ax, adjustment = adjustment, **kwargs)
 
-    def rbar_plot(self, ax, mode = 'A', adjustment = None, base_radius = 50, bar_width = 6, color = (0, 0, 1, 1), text_size = 7):
+    def rbar_plot(self, ax, adjustment = None, **kwargs):
 
         """
         This method gives a radial bar plot of the splits frequency.\n
@@ -381,4 +394,4 @@ class Splits(object):
         The \'mode\' should be either \'A\' or \'B\', which gives different version of the radial bar plot.
         """
         
-        viz.rbar_plot_Splits(self, ax, mode = mode, adjustment = adjustment, base_radius = base_radius, bar_width = bar_width, color = color, text_size = text_size)
+        viz.rbar_plot_Splits(self, ax, adjustment = adjustment, **kwargs)

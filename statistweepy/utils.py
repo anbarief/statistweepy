@@ -72,3 +72,26 @@ def total_rts(tweets, string_inclusion = False, naive = True):
                 result = sum([tweet.retweet_count for tweet in tweets if string_inclusion in clean_text(tweet.text).split()])
             
     return result
+
+def total_likes(tweets, string_inclusion = False, naive = True):
+
+    result = 0
+
+    if not string_inclusion :
+
+        result = sum([tweet.favorite_count for tweet in tweets]);
+
+    else:
+
+        if naive:
+            try:
+                result = sum([tweet.favorite_count for tweet in tweets if string_inclusion in tweet.full_text.split()])
+            except:
+                result = sum([tweet.favorite_count for tweet in tweets if string_inclusion in tweet.text.split()])
+        else:
+            try:
+                result = sum([tweet.favorite_count for tweet in tweets if string_inclusion in clean_text(tweet.full_text).split()])
+            except:
+                result = sum([tweet.favorite_count for tweet in tweets if string_inclusion in clean_text(tweet.text).split()])
+            
+    return result
