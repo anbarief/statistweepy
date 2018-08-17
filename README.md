@@ -32,11 +32,50 @@ model.hbar_plot(ax, meas = 'total_tweets', \
                 freq_lim = (10000, 1000000)) 
 fig.show()
 ```
-
 result:
 ![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_1.png)
 
 
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Authors(tweets)
+
+fig, ax = plt.subplots(1, 1)
+model.hbar2sided_plot(ax, meas_left = 'total_tweets', \
+                      meas_right = 'total_likes', \
+                      incolor_meas = 'sample_count', \
+                      aux_size = 0.5, \
+                      text_sizes = [10, 15], space = True, \
+                      freq_lim = ('left', (10000, 1000000))
+                      )
+fig.show()
+```
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_2.png)
+
+
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Authors(tweets)
+
+fig, ax = plt.subplots(1, 1)
+model.scatter_plot(ax, incolor_meas = 'sample_count', \
+                   text_sizes = [12, 15], \
+                   marker_size = 20, color = 'blue')
+fig.show()
+```
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_3.png)
 
 
 ---------------------------------
