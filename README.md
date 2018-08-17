@@ -3,13 +3,10 @@
 ## Data Analysis for Twitter in Python.
 
 Requirements :
+- Python 3.5
 - [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
 - Numpy
 - Matplotlib
-
-To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
-
-Author : Arief Anbiya (anbarief@live.com), written in Python 3.
 
 Useful article(s) : 
 
@@ -17,9 +14,38 @@ https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
 
 ---------------------------------
 
-## Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
+## Examples:
+
+```
+from statistweepy import models
+import matplotlib.pyplot as plt
+import numpy
+
+stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+tweets = models.Tweets(stats)
+model = models.Authors(tweets)
+
+fig, ax = plt.subplots(1, 1)
+model.hbar_plot(ax, meas = 'total_tweets', \
+                incolor_meas = 'total_tweets', \
+                text_sizes = [10, 15], \
+                freq_lim = (10000, 1000000)) 
+fig.show()
+```
+
+result:
+![alt text](https://raw.githubusercontent.com/anbarief/statistweepy/master/readme_0_1.png)
+
+
+
+
+---------------------------------
+
+## Example Work Cycle : (Pose the Question) - Collect Data - Analyze Data - (Interpret Results)
 
 ## Collect Data :
+
+To collect the data you must have a 'consumer key', 'consumer secret', 'access token', and 'access secret', that can be obtained by [register for a Twitter application](http://apps.twitter.com/). These will be used to access Twitter API through your Twitter account, and should be kept private. Notice also that you should *read and peruse the Twitter Developer Agreement and Policy carefully*, you may not use the data carelessly for example to do surveillance, provoke negative conflicts, etc.
 
 Here is an example of how we can collect the data : 
 
