@@ -21,7 +21,7 @@ from statistweepy import models
 import matplotlib.pyplot as plt
 import numpy
 
-stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
 tweets = models.Tweets(stats)
 model = models.Authors(tweets)
 
@@ -42,7 +42,7 @@ from statistweepy import models
 import matplotlib.pyplot as plt
 import numpy
 
-stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
 tweets = models.Tweets(stats)
 model = models.Authors(tweets)
 
@@ -66,7 +66,7 @@ from statistweepy import models
 import matplotlib.pyplot as plt
 import numpy
 
-stats = numpy.load('/home/asus/Arief_tempo/twitterstats/ProSyn_3000_12_8_2018_extended.npy')
+stats = numpy.load('ProSyn_3000_12_8_2018_extended.npy')
 tweets = models.Tweets(stats)
 model = models.Authors(tweets)
 
