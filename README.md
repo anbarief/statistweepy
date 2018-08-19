@@ -2,6 +2,10 @@
 
 ## Data Analysis for Twitter in Python.
 
+Includes: 
+- `list`-like object of Twitter statuses. (`Tweets` class)
+- horizontal bar charts (word frequency plot, ...), 2-sided horizontal bar charts, radial bar charts (word frequency plot), and histograms
+
 Requirements :
 - Python 3.5
 - [Tweepy](http://docs.tweepy.org/en/v3.5.0/)
