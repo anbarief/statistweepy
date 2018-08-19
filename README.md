@@ -4,7 +4,8 @@
 
 Includes: 
 - `list`-like object of Twitter statuses. (`Tweets` class)
-- horizontal bar charts (word frequency plot, ...), 2-sided horizontal bar charts, radial bar charts (word frequency plot), and histograms
+- horizontal bar charts (word frequency plot, ...), 2-sided horizontal bar charts, radial bar charts (word frequency plot), scatter plots, and histograms
+- models: `Tweets`, `Authors`, `Splits`.
 
 Requirements :
 - Python 3.5
