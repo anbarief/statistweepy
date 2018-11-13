@@ -111,7 +111,7 @@ def hbar_plot_Authors(model, ax, meas = 'followers_count', color = (0,0,1,1), in
         
     ax.barh(bar_pos, [meas_dic[author] for author in sorted_authors], height = width, color = colors)
     ax.set_yticks(ytick_pos)
-    helvetica = fm.FontProperties(fname = '/home/asus/statistweepy/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
+    helvetica = fm.FontProperties(fname = '/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
     ax.set_yticklabels(sorted_authors, rotation = 'horizontal', fontproperties = helvetica)
 
     ax.set_ylim([1 - width/2 - space, max(ytick_pos) + width/2 + space])
@@ -190,7 +190,7 @@ def hbar2sided_plot_Authors(model, ax, meas_left = 'followers_count', meas_right
     for i in ytick_pos:
        ax.plot([xlim[0], 0], [i, i], '--', color = 'gray', linewidth = aux_size)
 
-    helvetica = fm.FontProperties(fname = '/home/asus/statistweepy/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
+    helvetica = fm.FontProperties(fname = '/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
     ax.set_yticklabels(meas_leftdic.keys(), rotation = 'horizontal', fontproperties = helvetica)
 
     ax.set_xticks([min(left_values), max(right_values)])
@@ -220,7 +220,7 @@ def scatter_plot_Authors(model, ax, meas_x='followers_count', meas_y='following_
    meas_ydic = getattr(model, meas_y)
       
    authors = model.authors_tweets.keys()
-   helvetica = fm.FontProperties(fname = '/home/asus/statistweepy/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
+   helvetica = fm.FontProperties(fname = '/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
 
    if incolor_meas != None:
       meas_icdic = getattr(model, incolor_meas)
@@ -300,7 +300,7 @@ def hbar_plot_Splits(model, ax, adjustment = None, color = (0, 0.6, 1, 1), incol
     ax.barh(bar_pos, [splits_freq[split] for split in sorted_splits_by_freq], height = width, color = col)
 
     ax.set_yticks(ytick_pos)
-    helvetica = fm.FontProperties(fname = '/home/asus/statistweepy/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
+    helvetica = fm.FontProperties(fname = '/fonts/HelveticaNeueBold.ttf', size = text_sizes[0])
     ax.set_yticklabels(sorted_splits_by_freq, rotation = 'horizontal', fontproperties = helvetica)
     ax.set_ylim([1 - width/2 - space, max(ytick_pos) + width/2 + space])
 
