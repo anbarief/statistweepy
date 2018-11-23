@@ -1,6 +1,6 @@
 # Statistweepy
 
-![alt_text](https://github.com/anbarief/statistweepy/blob/master/20180821_195218_0001.png =10x10)
+![alt_text](https://github.com/anbarief/statistweepy/blob/master/20180821_195218_0001.png)
 
 ## Data Analysis for Twitter in Python.
 
